@@ -15,8 +15,8 @@
           <div class="card border-primary mb-3">
             <div class="card-body">{{ task.content }}</div>
             <div class="card-footer">
-                <a href="#" class="btn btn-primary">Take task</a>
-                <a href="#" class="btn btn-primary">Delete</a>
+                <a href="take/{{ task.id }}" class="btn btn-primary">Take task</a>
+                <a href="/delete/{{ task.id }}" class="btn btn-primary">Delete</a>
             </div>
           </div>
         {% endif %}
@@ -35,26 +35,36 @@
   <div class="col">
     <div class="container">
       <h2 class="text-center">DOING</h2>
+        {% for task in tasks %}
+            {% if task.status=='doing' %}
             <div class="card border-dark mb-3">
 
-            <div class="card-body">Task 2 content</div>
+            <div class="card-body">{{ task.content }}</div>
             <div class="card-footer">
-                <a href="#" class="btn btn-primary">Complete</a>
-                <a href="#" class="btn btn-primary">Discard</a>
+                <a href="/complete/{{ task.id }}" class="btn btn-primary">Complete</a>
+                <a href="/discard/{{ task.id }}" class="btn btn-primary">Discard</a>
             </div>
             </div>
+        {% endif %}
+        {% endfor %}
 
     </div>
   </div>
+
   <div class="col">
     <div class="container">
       <h2 class="text-center">DONE</h2>
+        {% for task in tasks %}
+            {% if task.status=='done' %}
             <div class="card border-success mb-3">
-            <div class="card-body">Content</div>
+            <div class="card-body">{{ task.content }}</div>
             <div class="card-footer">
-                <a href="#" class="btn btn-primary">Remove</a>
+                <a href="/delete/{{ task.id }}" class="btn btn-primary">Remove</a>
             </div>
           </div>
+
+        {% endif %}
+        {% endfor %}
 
 
 

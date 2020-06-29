@@ -28,8 +28,11 @@ class Task(db.Model) :
     status = db.Column(Enum('to_do', 'doing', 'done'))
 
 
+db.create_all()
+
+
 @app.route('/', methods=['POST', 'GET'])
-def index():
+def index() :
     if request.method == 'POST' :
         task_content = request.form ['content']
         if task_content == '' :
@@ -50,9 +53,51 @@ def index():
 
         return render_template('main.html', tasks=tasks)
 
-@app.route('/delete')
-def delete():
-    pass
+
+@app.route('/delete/<int:id>')
+def delete(id) :
+    task_to_delete = Task.query.get_or_404(id)
+
+    try :
+        db.session.delete(task_to_delete)
+        db.session.commit()
+        return redirect('/')
+    except :
+        return "There was an problem "
+
+
+@app.route('/take/<int:id>')
+def take_task(id) :
+    task_to_take = Task.query.get_or_404(id)
+    try :
+        task_to_take.status = "doing"
+        db.session.commit()
+        return redirect('/')
+    except :
+        return "There was an problem "
+
+
+@app.route('/complete/<int:id>')
+def complete(id) :
+    task_to_take = Task.query.get_or_404(id)
+    try :
+        task_to_take.status = "done"
+        db.session.commit()
+        return redirect('/')
+    except :
+        return "There was an problem "
+
+
+@app.route('/discard/<int:id>')
+def discard(id) :
+    task_to_take = Task.query.get_or_404(id)
+    try :
+        task_to_take.status = "to_do"
+        db.session.commit()
+        return redirect('/')
+    except :
+        return "There was an problem "
+
 
 if __name__ == "__main__" :
     app.run(debug=True)
