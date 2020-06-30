@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect, flash
+from flask import Flask, render_template, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -66,30 +66,29 @@ def delete(id) :
         return "There was an problem "
 
 
-@app.route('/take/<int:id>')
-def take_task(id) :
-    task_to_take = Task.query.get_or_404(id)
+@app.route('/task/<status>/<int:id>')
+def take_task(status, id) :
+    task_to_take = Task.query.get_or_404(id, status)
     try :
-        task_to_take.status = "doing"
-        db.session.commit()
-        return redirect('/')
-    except :
-        return "There was an problem "
+        if task_to_take.status == "to_do" :
 
-
-@app.route('/complete/<int:id>')
-def complete(id) :
-    task_to_take = Task.query.get_or_404(id)
-    try :
-        task_to_take.status = "done"
-        db.session.commit()
-        return redirect('/')
-    except :
+            task_to_take.status = "doing"
+            db.session.commit()
+            return redirect('/')
+        elif task_to_take.status == "doing" :
+            task_to_take.status = "done"
+            db.session.commit()
+            return redirect('/')
+        else :
+            task_to_take.status = "done"
+            db.session.commit()
+            return redirect('/')
+    except:
         return "There was an problem "
 
 
 @app.route('/discard/<int:id>')
-def discard(id) :
+def discard(id):
     task_to_take = Task.query.get_or_404(id)
     try :
         task_to_take.status = "to_do"
@@ -97,6 +96,11 @@ def discard(id) :
         return redirect('/')
     except :
         return "There was an problem "
+
+
+@app.route('/login')
+def login() :
+    return render_template('login.html')
 
 
 if __name__ == "__main__" :
