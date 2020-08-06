@@ -14,6 +14,7 @@
 
         {% for task in tasks %}
             {% if task.status == 'to_do' %}
+
           <div class="card border-primary mb-3 text-center" style="width: 18rem;" >
             <div class="card-body">
                 <p class="card-text">{{ task.content }}</p>
@@ -25,7 +26,7 @@
           </div>
         {% endif %}
         {% endfor %}
-        <form action="/" method="POST">
+        <form action="/app" method="POST">
             <div class="row justify-content-center">
                 <div class="input-group mb-3" style="width: 18rem;">
                 <input type="text" name="content" id="content" class="form-control" placeholder="New task" aria-label="New task" aria-describedby="basic-addon2">
@@ -35,6 +36,13 @@
             </div>
             </div>
     </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <h3 class="text-center">{{ message }}</h3>
+            {% endfor %}
+            {% endif %}
+    {% endwith %}
     </div>
   </div>
 
