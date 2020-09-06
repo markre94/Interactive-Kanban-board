@@ -5,6 +5,15 @@
 {% endblock %}
 
 {% block body %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{category}}">
+            {{ message }}
+        </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
 <div class="row">
 
   <div class="col">
@@ -36,13 +45,7 @@
             </div>
             </div>
     </form>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <h3 class="text-center">{{ message }}</h3>
-            {% endfor %}
-            {% endif %}
-    {% endwith %}
+
     </div>
   </div>
 

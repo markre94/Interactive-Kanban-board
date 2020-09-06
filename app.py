@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect, flash,url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from forms import RegistrationFrom, LoginFrom
 
 from sqlalchemy import Enum
 
@@ -31,28 +32,39 @@ class Task(db.Model):
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    login = db.Column(db.String)
+    login = db.Column(db.String(64), index=True, unique=True)
+    email = db.Column(db.String(120), index=True, unique=True)
     password = db.Column(db.String)
 
     def __repr__(self):
         return f"User ('{self.login}')"
 
 
-
 @app.route('/')
 def home():
     return render_template('base.html')
-@app.route('/login')
+
+
+@app.route('/login', methods=['POST', 'GET'])
 def login():
-    return render_template('login.html')
+    form = LoginFrom()
+    if form.validate_on_submit():
+        if form.email.data == 'markre94@icloud.com' and form.password.data == "elo":
+            flash(f'You are now logged in as {form.email.data}!', 'success')
+            return redirect(url_for('index'))
+        else:
+            flash("Login unsuccessful", "danger")
+    return render_template(template_name_or_list='login.html', form=form, title="Login")
 
-@app.route('/sign')
-def sign_in():
-    return render_template('sign_in.html')
 
-@app.route('/logout')
-def log_out():
-    return render_template('/base.html')
+@app.route('/register', methods=['POST', 'GET'])
+def register():
+    form = RegistrationFrom()
+    if form.validate_on_submit():
+        flash(f"User created for {form.username.data}!", 'success')
+        return redirect(url_for('index'))
+    return render_template(template_name_or_list='sign_in.html', form=form, title="Register")
+
 
 @app.route('/app', methods=['POST', 'GET'])
 def index():
@@ -60,7 +72,7 @@ def index():
         try:
             task_content = request.form ['content']
             if task_content == '':
-                flash('The task must contain something.', 'error')
+                flash('The task must contain something.', 'warning')
                 return redirect('/app')
             else:
                 new_task = Task(content=task_content, status='to_do')

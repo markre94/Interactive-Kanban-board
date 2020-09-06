@@ -4,25 +4,71 @@
 
 {% endblock %}
 
-{% block body %}
-<div class="d-flex justify-content-center align-items-center container ">
-<form class="form-signin">
-    <br>
-    <br>
-    <br>
 
-      <h1 class="h3 mb-3 font-weight-normal text-center">Log in</h1>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>
-    </form>
-</div>
+
+{% block body %}
+    <br>
+    <br>
+    <div class="d-flex justify-content-center align-items-center container ">
+    <div class="content-section">
+        <form method="POST" action="">
+            {{form.hidden_tag()}}
+            <fieldset class="form-group">
+                <legend class ="border-bottom-mb-4 text-center"> Log in</legend>
+
+                <div class ="form-group">
+                    {{ form.email.label(class="form-control-label") }}
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                             <span> {{ error }} </span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-lg") }}
+
+                    {% endif %}
+                </div>
+
+                <div class ="form-group">
+                    {{ form.password.label(class="form-control-label") }}
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                             <span> {{ error }} </span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="form-control form-control-lg") }}
+
+                    {% endif %}
+                </div>
+                <div class ="form-check">
+                    {{ form.remember(class="form-check-input") }}
+                    {{ form.remember.label(class="form-check-label") }}
+
+                </div>
+
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+            <small class="text-muted ml-2">
+                <a href="#">Forgot Password?</a>
+            </small>
+        </form>
+    </div>
+        </div>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Don't have an account yet? <a class="ml-2" href="{{ url_for('register') }}">Join
+            today</a>
+        </small>
+    </div>
+
+
+
+
 {% endblock %}
