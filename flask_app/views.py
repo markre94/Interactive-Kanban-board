@@ -20,7 +20,7 @@ def index():
                 flash('The task must contain something.', 'warning')
                 return redirect('/app')
             else:
-                new_task = Task(content=task_content, status='to_do')
+                new_task = Task(content=task_content, status='to_do', owner = current_user)
 
                 try:
                     db.session.add(new_task)
@@ -31,7 +31,7 @@ def index():
         except:
             flash("Ups forgot to add file")
     else:
-        tasks = Task.query.order_by(Task.date_created).all()
+        tasks = current_user.tasks
 
         return render_template('main.html', tasks=tasks)
 

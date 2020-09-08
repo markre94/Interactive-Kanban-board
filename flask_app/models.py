@@ -29,6 +29,7 @@ class Task(db.Model):
     content = db.Column(db.String, nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     status = db.Column(Enum('to_do', 'doing', 'done'))
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
 class User(db.Model,UserMixin):
@@ -36,6 +37,7 @@ class User(db.Model,UserMixin):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password = db.Column(db.String)
+    tasks = db.relationship('Task', backref='owner')
 
     def __repr__(self):
         return f"User ('{self.login}')"

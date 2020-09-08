@@ -9,6 +9,7 @@ app.config ['SECRET_KEY'] = 'ZOMn8n1Jt8KTfXPwbcZ3tw'
 bcrypt = Bcrypt(app)
 db.init_app(app)
 
+db.create_all(app=app)
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
