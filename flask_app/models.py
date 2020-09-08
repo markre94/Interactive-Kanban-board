@@ -1,6 +1,15 @@
-from flask_app import db
 from datetime import datetime
 from sqlalchemy import Enum
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager,UserMixin
+
+login_manager = LoginManager()
+db = SQLAlchemy()
+
+
+@login_manager.user_loader
+def load_eser(user_id):
+    return User.query.get(int(user_id))
 
 
 class Task(db.Model):
@@ -22,7 +31,7 @@ class Task(db.Model):
     status = db.Column(Enum('to_do', 'doing', 'done'))
 
 
-class User(db.Model):
+class User(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
