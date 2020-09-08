@@ -117,6 +117,10 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+@app.route('/log')
+def log():
+    return render_template('log.html')
+
 
 @app.route('/account')
 @login_required
