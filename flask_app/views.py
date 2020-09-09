@@ -5,6 +5,7 @@ from flask_app.forms import RegistrationFrom, LoginFrom
 from flask_login import login_user, current_user, logout_user, login_required
 
 
+
 @app.route('/')
 def home():
     return render_template('base.html')
@@ -20,7 +21,7 @@ def index():
                 flash('The task must contain something.', 'warning')
                 return redirect('/app')
             else:
-                new_task = Task(content=task_content, status='to_do', owner = current_user)
+                new_task = Task(content=task_content, status='to_do', owner=current_user)
 
                 try:
                     db.session.add(new_task)
@@ -117,12 +118,16 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+
 @app.route('/log')
 def log():
     return render_template('log.html')
 
 
-@app.route('/account')
+@app.route('/dashboard')
 @login_required
-def account():
-    return render_template('account.html', title='Account')
+def account_dashboard():
+    return render_template('user_dash.html', title='Dashboard')
+
+
+

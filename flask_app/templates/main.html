@@ -7,22 +7,20 @@
 {% block body %}
 
 <div class="row">
-
   <div class="col">
-
     <div class="container">
         <h2 class="text-center">TO DO</h2>
 
         {% for task in tasks %}
             {% if task.status == 'to_do' %}
 
-          <div class="card border-primary mb-3 text-center" style="width: 18rem;" >
-            <div class="card-body">
-                <p class="card-text">{{ task.content }}</p>
+          <div class="card mb-3 text-center" style="width: 18rem;" >
+            <div class="card-body bg-primary">
+                <p class="card-text text-white">{{ task.content }}</p>
             </div>
-            <div class="card-footer">
-                <a href="/task/{{ task.status }}/{{ task.id }}" class="btn btn-link btn-sm">Take task</a>
-                <a href="/delete/{{ task.id }}" class="btn btn-link btn-sm">Delete</a>
+            <div class="card-footer bg-primary">
+                <a href="/task/{{ task.status }}/{{ task.id }}" class="btn btn-warning btn-sm">Take task</a>
+                <a href="/delete/{{ task.id }}" class="btn btn-danger btn-sm">Delete</a>
             </div>
           </div>
         {% endif %}
@@ -47,14 +45,14 @@
       <h2 class="text-center">DOING</h2>
         {% for task in tasks %}
             {% if task.status=='doing' %}
-            <div class="card border-dark mb-3 text-center" style="width: 18rem;">
+            <div class="card mb-3 text-center" style="width: 18rem;">
 
-            <div class="card-body">
-                <p class="card-text">{{ task.content }}</p>
+            <div class="card-body bg-warning">
+                <p class="card-text text-white">{{ task.content }}</p>
             </div>
-            <div class="card-footer">
-                <a href="/task/{{ task.status }}/{{ task.id }}" class="btn btn-link btn-sm">Completed</a>
-                <a href="/discard/{{ task.id }}" class="btn btn-link btn-sm">Discard</a>
+            <div class="card-footer bg-warning">
+                <a href="/task/{{ task.status }}/{{ task.id }}" class="btn btn-success btn-sm">Completed</a>
+                <a href="/discard/{{ task.id }}" class="btn btn-danger btn-sm">Discard</a>
             </div>
             </div>
         {% endif %}
@@ -68,12 +66,12 @@
       <h2 class="text-center">DONE</h2>
         {% for task in tasks %}
             {% if task.status=='done' %}
-            <div class="card border-success mb-3 text-center" style="width: 18rem;">
-            <div class="card-body">
-                <p class="card-text ">{{ task.content }}</p>
+            <div class="card mb-3 text-center" style="width: 18rem;">
+            <div class="card-body bg-success">
+                <p class="card-text text-white">{{ task.content }}</p>
             </div>
-            <div class="card-footer">
-                <a href="/delete/{{ task.id }}" class="btn btn-link btn-sm">Remove</a>
+            <div class="card-footer bg-success">
+                <a href="/delete/{{ task.id }}" class="btn btn-danger btn-sm">Remove</a>
             </div>
           </div>
 

@@ -5,14 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <br>
-    <br>
-    <div class="container">
-          <div class="row">
-            <div class="col"></div>
-
-            <div class="col-6">
-              <div class="d-flex justify-content-center align-items-center container">
+          <div class="d-flex justify-content-center align-items-center container">
                 <div class="content-section">
                     <form method="POST" action="">
                         {{form.hidden_tag()}}
@@ -59,23 +52,22 @@
                             {{ form.submit(class="btn btn-outline-info") }}
                         </div>
                         <small class="text-muted ml-2">
-                            <a href="#">Forgot Password?</a>
+                            <a class="text-info" href="#">Forgot Password?</a>
                         </small>
                     </form>
                 </div>
-                    </div>
-
-                        <div class="border-top pt-3">
-                            <small class="text-muted">
-                                Don't have an account yet? <a class="ml-2" href="{{ url_for('register') }}">Join
-                                today</a>
-                            </small>
-                        </div>
-                    </div>
-            <div class="col"></div>
           </div>
 
-    </div>
+
+<div class="border-top pt-3">
+  <div class="d-flex justify-content-center align-items-center container">
+
+    <small class="text-muted text-center">
+        Don't have an account yet? <a class="text-info ml-2" href="{{ url_for('register') }}">Join
+        today</a>
+    </small>
+  </div>
+</div>
 
 
 {% endblock %}
