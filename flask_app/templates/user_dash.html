@@ -4,4 +4,24 @@
 
 {% endblock %}
 
-{% block body %}{% endblock %}
+{% block body %}
+<br>
+<div class="container-fluid text-center">
+    <div class="content-section">
+        <div class="media">
+            <img class="mx-auto d-block" width="200" height="200" src="{{ image_file }}">
+
+
+        </div>
+        <div class="media-body">
+                    <h2 class="account-heading">{{ current_user.username }}</h2>
+                    <p class="text-secondary"> {{ current_user.email }}</p>
+                    <p class="text-secondary"> Number of waiting tasks {{ pending_tasks }}</p>
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
