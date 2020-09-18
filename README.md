@@ -1,71 +1,46 @@
 ### Interactive personal Kanban Board with Python and Flask.
 
-### Functionality
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [File structure](#file-structure)
 
-This web app provides a valid information about a uploaded picture in .jpg format. The scope of this informations are mainly focused around the localisation of where the current picture has been taken. 
 
-The app has got a cool feature which allows user to see the actual localisation of the picture on the map by redirecting a web page to the Google Maps application.
+## General info
 
-This applies only for the pictures in .jpg format that have an GPSInfo available. It should work porperly with the all of the pictures took on Iphone and Android smarphones.
+This project was mainly developed to increase productivity by visualization of the workflow of the user. The Web application is based on the Kanban Board as on one of the most frequently used tool of the whole kanban system. 
 
-### File structure
+The kanban_board application serves as an fully interactive personal task board. It handles multiple users, has implemented a login and registration system.
+
+## Technologies
+Project is created with:
+* Python: 3.8.3
+* Flask: 1.1.2
+* Bootstrap 4
+* sqlite.db
+
+
+## File structure
 The Kanban Board consist the following files:
 - run.py _runs an application_
 - requirements.txt _contains the required packages for the project._
 - flask_app/ _configuration of the aplication along with all backend._
 
+- flask_app/static/ _css file to fix the view and the positioning of the web application
+- flask_app/templates _the html file interacting with the backend web application functions inside the views.py
+
+- flask_app/forms.py _a file containing all of the used forms that are used as the main functionalty of the login and registration module of the kanban_app
+- flask_app/models.py _file that constructs two models as a foundations of the sqlite database applied int the kanban_app
+- flask_app/views.py - main backend fuctions providing of all of the application functionaly
 
 
-The test files are located in the test/ folder. 
-
-### Presentation
-
-![Zrzut ekranu 2020-07-1 o 22 28 29](https://user-images.githubusercontent.com/54006852/86289083-579f7c80-bbeb-11ea-9968-ffa8646ce33a.png)
 
 
-![Zrzut ekranu 2020-07-1 o 22 29 25](https://user-images.githubusercontent.com/54006852/86289694-6cc8db00-bbec-11ea-9e4b-efff4b7857c5.png)
+### Additional challenges
 
-
-![Zrzut ekranu 2020-07-1 o 22 29 39](https://user-images.githubusercontent.com/54006852/86289969-e660c900-bbec-11ea-9ea7-6235276c8b10.png)
-
-
-### System tests
-
-With the combination of the Selenium and Pytest the fully functional tests were writen. The main challenge of writting the automated tests e.g. end to end tests was to construct a optimal fixture that would set up a flask application server and killed it after the tests have ended. The fixture file is located in the test/conftest.py file.
-
-```import pytest
-from selenium import webdriver
-import subprocess
-
-
-@pytest.fixture()
-def app_browser_main() -> webdriver.Chrome :
-    print("Starting server...")
-    subprocess.Popen('pkill flask', shell=True)
-    proc = subprocess.Popen('cd ..;export FLASK_APP=run.py;flask run', shell=True)
-    assert not proc.stderr
-    print(proc.stderr)
-    print("Server stared...")
-    # run flask
-    # run selenium with proper url
-    browser = webdriver.Chrome()
-    yield browser
-    print("Killing")
-    proc.kill()
-    browser.close()
-
-    p = subprocess.run("lsof -i -n -P | grep 5000", capture_output=True, shell=True, encoding="utf8")
-    print(p.stdout)
-    x = [elem for elem in p.stdout.split()]
-    if x[0] == 'Python':
-        subprocess.run(f'kill {x[1]}', shell=True)
-    print("Killed")
-```
-
-### Additinal challenges
-
-- [ ] write more units tests for the application using mocking methods
-- [ ] place the application on the Heroku Server
+- [ ] upgrade the users profile with the jquery/matpoplotlib to visualize the weekly progress and workflow of the logged user
+- [ ] write end2end tests with Selenium, and more integration tests via pytest
+- [ ] construct a fully operational test environment
 
 
 
