@@ -10,6 +10,8 @@
 
 This project was mainly developed to increase productivity by visualization of the workflow of the user. The Web application is based on the Kanban Board as on one of the most frequently used tool of the whole kanban system. 
 
+<img width="1440" alt="Zrzut ekranu 2020-09-18 o 17 56 15" src="https://user-images.githubusercontent.com/54006852/93619205-86521580-f9d8-11ea-81e6-2dd0a58b35bf.png">
+
 The kanban_board application serves as an fully interactive personal task board. It handles multiple users, has implemented a login and registration system.
 
 ## Technologies
