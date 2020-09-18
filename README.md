@@ -15,7 +15,7 @@ This project was mainly developed to increase productivity by visualization of t
 The kanban_board application serves as an fully interactive personal task board. It handles multiple users, has implemented a login and registration system.
 The structure of the application models allows currently logged user to see  only the tasks of his own while the tasks of other users are still being stored on the database.
 
-<img width="1440" alt="Zrzut ekranu 2020-09-18 o 17 54 10" src="https://user-images.githubusercontent.com/54006852/93619505-e943ac80-f9d8-11ea-93a4-9b190cfef135.png">
+<img width="1437" alt="Zrzut ekranu 2020-09-18 o 17 54 10" src="https://user-images.githubusercontent.com/54006852/93620226-f745fd00-f9d9-11ea-9d53-b3c861ecb299.png">
 
 
 ## Technologies
