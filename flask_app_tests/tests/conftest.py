@@ -1,4 +1,4 @@
-import tempfile, os
+import tempfile,os
 import pytest
 from selenium import webdriver
 import subprocess
@@ -23,6 +23,13 @@ def config_browser(config):
     return config ['browser']
 
 
+@pytest.fixture(scope='session')
+def config_register():
+    with open('register_data.json') as reg_data:
+        data = json.load(reg_data)
+        return data
+
+
 @pytest.fixture
 def browser(config_browser, config):
     """Initialazes the browser"""
@@ -34,7 +41,7 @@ def browser(config_browser, config):
     else:
         raise Exception(f'{config_browser} is not supported browser')
 
-    driver.implicitly_wait(config['wait_time'])
+    driver.implicitly_wait(config ['wait_time'])
     yield driver
     proc.kill()
     driver.quit()
