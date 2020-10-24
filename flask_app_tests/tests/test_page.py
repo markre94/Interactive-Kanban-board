@@ -1,13 +1,13 @@
 import time
 from flask_app_tests.pages.login_page import KanbanLoginPage
-from flask_app_tests.pages.start_page import KanbanStartPage
+from flask_app_tests.pages.start_page import KanbanStartPage, KanbanAppPage
 from flask_app_tests.pages.register_page import KanbanRegisterPage
 
 
 def test_login(browser):
     login_page = KanbanLoginPage(browser)
     login_page.load()
-    mail_data = 'pol@gmail.com'
+    mail_data = 'marcin@gmail.com'
     passwd_data = 'mama'
 
     login_page.login(mail_data, passwd_data)
@@ -31,3 +31,38 @@ def test_register(browser, config_register):
 def test_home(browser):
     start_page = KanbanStartPage(browser)
     start_page.load()
+    time.sleep(2)
+
+
+def test_add_task(browser):
+    login_page = KanbanLoginPage(browser)
+    login_page.load()
+    mail_data = 'marcin@gmail.com'
+    passwd_data = 'mama'
+
+    login_page.login(mail_data, passwd_data)
+
+    task_page = KanbanAppPage(browser)
+    task_page.load()
+    task_page.add_new_task('make coffee')
+
+    time.sleep(2)
+
+
+def test_undertake_task(browser):
+    # Login to the page
+    login_page = KanbanLoginPage(browser)
+    login_page.load()
+    mail_data = 'marcin@gmail.com'
+    passwd_data = 'mama'
+
+    login_page.login(mail_data, passwd_data)
+
+    task_page = KanbanAppPage(browser)
+    task_page.load()
+    task_page.take_new_task()
+    time.sleep(2)
+    #
+
+
+

@@ -19,16 +19,16 @@ class KanbanRegisterPage:
 
     def register(self, config_register):
         name_input = self.browser.find_element(*self.USERNAME_INPUT)
-        name_input.send_keys(config_register ['username'])
+        name_input.send_keys(config_register['username'])
 
         email_input = self.browser.find_element(*self.EMAIL_INPUT)
-        email_input.send_keys(config_register ['email'])
+        email_input.send_keys(config_register['email'])
 
         pass_input = self.browser.find_element(*self.PASSWORD_INPUT)
-        pass_input.send_keys(config_register ['password'])
+        pass_input.send_keys(config_register['password'])
 
         confirm_pass_input = self.browser.find_element(*self.CONFIRM_PASS_INPUT)
-        confirm_pass_input.send_keys(config_register ['password'])
+        confirm_pass_input.send_keys(config_register['password'])
 
         reg_button = self.browser.find_element(*self.REGISTER_BUTTON)
         reg_button.click()

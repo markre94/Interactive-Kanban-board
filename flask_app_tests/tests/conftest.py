@@ -1,4 +1,4 @@
-import tempfile,os
+import tempfile, os
 import pytest
 from selenium import webdriver
 import subprocess
@@ -18,9 +18,9 @@ def config():
 def config_browser(config):
     if 'browser' not in config:
         raise Exception('The config file does not have the "browser element"')
-    elif config ['browser'] not in SUPPORTED_BROWESERS:
+    elif config['browser'] not in SUPPORTED_BROWESERS:
         raise Exception("The current browser is not in the supported browser scope")
-    return config ['browser']
+    return config['browser']
 
 
 @pytest.fixture(scope='session')
@@ -41,7 +41,7 @@ def browser(config_browser, config):
     else:
         raise Exception(f'{config_browser} is not supported browser')
 
-    driver.implicitly_wait(config ['wait_time'])
+    driver.implicitly_wait(config['wait_time'])
     yield driver
     proc.kill()
     driver.quit()
@@ -50,6 +50,6 @@ def browser(config_browser, config):
     p = subprocess.run("lsof -i -n -P | grep 5000", capture_output=True, shell=True, encoding="utf8")
     print(p.stdout)
     x = [elem for elem in p.stdout.split()]
-    if x [0] == 'Python':
-        subprocess.run(f'kill {x [1]}', shell=True)
+    if x[0] == 'Python':
+        subprocess.run(f'kill {x[1]}', shell=True)
     print("Killed")
