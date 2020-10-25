@@ -13,7 +13,7 @@ def test_login(browser):
     login_page.login(mail_data, passwd_data)
 
     time.sleep(2)
-    assert browser.current_url is "http://127.0.0.1:5000/app"
+    assert browser.current_url == "http://127.0.0.1:5000/app"
 
 
 def test_register(browser, config_register):
@@ -60,9 +60,18 @@ def test_undertake_task(browser):
 
     task_page = KanbanAppPage(browser)
     task_page.load()
+    task_page.add_new_task('make coffee')
+    # Switch to doing
+    time.sleep(1)
+
     task_page.take_new_task()
-    time.sleep(2)
-    #
+    # Switch to completed
+    task_page.finish_task()
+    time.sleep(1)
+    # remove task
+    task_page.remove_task()
+    # log out
+    task_page.log_out()
 
-
-
+    # LOG OUT URL VALIDATION
+    assert browser.current_url == "http://127.0.0.1:5000/"

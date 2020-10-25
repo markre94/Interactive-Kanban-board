@@ -1,8 +1,8 @@
-import tempfile, os
+import json
+import subprocess
+
 import pytest
 from selenium import webdriver
-import subprocess
-import json
 
 SUPPORTED_BROWESERS = ['chrome', 'firefox']
 

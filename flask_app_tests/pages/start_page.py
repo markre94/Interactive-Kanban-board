@@ -18,7 +18,9 @@ class KanbanAppPage:
     TASK_INPUT = (By.XPATH, "/html/body/div/div[1]/div/form/div/div/input")
     TASK_ADD = (By.XPATH, "/html/body/div/div[1]/div/form/div/div/div/button")
     NEW_TASK_TAKE = (By.XPATH, "/html/body/div/div[1]/div/div[1]/div[2]/a[1]")
-
+    DOING = (By.XPATH, "/html/body/div/div[2]/div/div/div[2]/a[1]")
+    REMOVE_BTN = (By.XPATH, "/html/body/div/div[3]/div/div/div[2]/a")
+    LOG_OUT = (By.XPATH, "/html/body/nav/div[2]/ul/li[2]/a")
 
     def __init__(self, browser):
         self.browser = browser
@@ -37,5 +39,14 @@ class KanbanAppPage:
         take_task = self.browser.find_element(*self.NEW_TASK_TAKE)
         take_task.click()
 
+    def finish_task(self):
+        finish_task = self.browser.find_element(*self.DOING)
+        finish_task.click()
 
+    def remove_task(self):
+        remove = self.browser.find_element(*self.REMOVE_BTN)
+        remove.click()
 
+    def log_out(self):
+        log_out = self.browser.find_element(*self.LOG_OUT)
+        log_out.click()
