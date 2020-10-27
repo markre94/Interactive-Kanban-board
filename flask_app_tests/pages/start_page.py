@@ -5,15 +5,23 @@ from selenium.webdriver.common.keys import Keys
 class KanbanStartPage:
     URL = "http://127.0.0.1:5000/"
 
+    TITLE_PAGE = (By.LINK_TEXT, "KANBAN")
+
     def __init__(self, browser):
         self.browser = browser
 
     def load(self):
         self.browser.get(self.URL)
 
+    def go_to_title_page(self):
+        self.browser.find_element(*self.TITLE_PAGE).click()
+
+    def get_title(self):
+        return self.browser.find_element(*self.TITLE_PAGE).text
+
 
 class KanbanAppPage:
-    URL = "http://127.0.0.1:5000/"
+    URL = "http://127.0.0.1:5000/app"
 
     TASK_INPUT = (By.XPATH, "/html/body/div/div[1]/div/form/div/div/input")
     TASK_ADD = (By.XPATH, "/html/body/div/div[1]/div/form/div/div/div/button")

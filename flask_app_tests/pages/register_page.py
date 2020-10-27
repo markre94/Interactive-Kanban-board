@@ -10,6 +10,7 @@ class KanbanRegisterPage:
     EMAIL_INPUT = (By.XPATH, "/html/body/div[1]/div/form/fieldset/div[2]/input")
     CONFIRM_PASS_INPUT = (By.XPATH, "/html/body/div[1]/div/form/fieldset/div[4]/input")
     REGISTER_BUTTON = (By.XPATH, "/html/body/div[1]/div/form/div/input")
+    SIGN_IN_BTN = (By.XPATH, "/html/body/div[2]/div/small/a")
 
     def __init__(self, browser):
         self.browser = browser
@@ -32,3 +33,7 @@ class KanbanRegisterPage:
 
         reg_button = self.browser.find_element(*self.REGISTER_BUTTON)
         reg_button.click()
+
+    def sign_in(self):
+        sign_in_btn = self.browser.find_element(*self.SIGN_IN_BTN)
+        sign_in_btn.click()

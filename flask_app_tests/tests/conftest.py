@@ -30,6 +30,13 @@ def config_register():
         return data
 
 
+@pytest.fixture(scope='session')
+def config_login():
+    with open('login_data.json') as reg_data:
+        data = json.load(reg_data)
+        return data
+
+
 @pytest.fixture
 def browser(config_browser, config):
     """Initialazes the browser"""

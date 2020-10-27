@@ -4,14 +4,10 @@ from flask_app_tests.pages.start_page import KanbanStartPage, KanbanAppPage
 from flask_app_tests.pages.register_page import KanbanRegisterPage
 
 
-def test_login(browser):
+def test_login(browser, config_login):
     login_page = KanbanLoginPage(browser)
     login_page.load()
-    mail_data = 'marcin@gmail.com'
-    passwd_data = 'mama'
-
-    login_page.login(mail_data, passwd_data)
-
+    login_page.login(config_login)
     time.sleep(2)
     assert browser.current_url == "http://127.0.0.1:5000/app"
 
@@ -31,16 +27,18 @@ def test_register(browser, config_register):
 def test_home(browser):
     start_page = KanbanStartPage(browser)
     start_page.load()
+
+    assert start_page.get_title() == "KANBAN"
+    time.sleep(2)
+    start_page.go_to_title_page()
     time.sleep(2)
 
 
-def test_add_task(browser):
+def test_add_task(browser, config_login):
     login_page = KanbanLoginPage(browser)
     login_page.load()
-    mail_data = 'marcin@gmail.com'
-    passwd_data = 'mama'
 
-    login_page.login(mail_data, passwd_data)
+    login_page.login(config_login)
 
     task_page = KanbanAppPage(browser)
     task_page.load()
@@ -49,25 +47,20 @@ def test_add_task(browser):
     time.sleep(2)
 
 
-def test_undertake_task(browser):
+def test_undertake_task(browser, config_login):
     # Login to the page
     login_page = KanbanLoginPage(browser)
     login_page.load()
-    mail_data = 'marcin@gmail.com'
-    passwd_data = 'mama'
 
-    login_page.login(mail_data, passwd_data)
+    login_page.login(config_login)
 
     task_page = KanbanAppPage(browser)
     task_page.load()
     task_page.add_new_task('make coffee')
     # Switch to doing
-    time.sleep(1)
-
     task_page.take_new_task()
     # Switch to completed
     task_page.finish_task()
-    time.sleep(1)
     # remove task
     task_page.remove_task()
     # log out
@@ -75,3 +68,31 @@ def test_undertake_task(browser):
 
     # LOG OUT URL VALIDATION
     assert browser.current_url == "http://127.0.0.1:5000/"
+
+
+def test_login_redirect(browser, config_login):
+    task_page = KanbanAppPage(browser)
+    task_page.load()
+
+    assert browser.current_url == "http://127.0.0.1:5000/login?next=%2Fapp"
+
+    login_page = KanbanLoginPage(browser)
+    login_page.login(config_login)
+
+    assert browser.current_url == "http://127.0.0.1:5000/app"
+
+
+def test_join_today(browser):
+    login_page = KanbanLoginPage(browser)
+    login_page.load()
+    login_page.go_to_registration()
+    assert browser.current_url == "http://127.0.0.1:5000/register"
+
+
+def test_login_from_registration_page(browser):
+    register = KanbanRegisterPage(browser)
+    register.load()
+    register.sign_in()
+    assert browser.current_url == "http://127.0.0.1:5000/login"
+
+
