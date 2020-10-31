@@ -45,8 +45,8 @@ The Kanban Board consist the following files:
 ### Additional challenges
 
 - [ ] upgrade the users profile with the jquery/matpoplotlib to visualize the weekly progress and workflow of the logged user
-- [ ] write end2end tests with Selenium, and more integration tests via pytest
-- [ ] construct a fully operational test environment
+- [x] write end2end tests with Selenium, and more integration tests via pytest
+- [x] construct a fully operational test environment
 
 
 
